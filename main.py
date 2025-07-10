@@ -9,8 +9,8 @@ screen.setup(width = 800, height = 600)
 screen.title("PingPong by Osodo")
 screen.bgcolor("black")
 screen.tracer(0)
-r_paddle = Paddle((350,0))
-l_paddle = Paddle((-350,0))
+r_paddle = Paddle((380, 0))
+l_paddle = Paddle((-380, 0))
 ball = Ball()
 
 screen.listen()
@@ -26,9 +26,13 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     ball.move()
+#Detect collision with the wall
+    if ball.ycor() > 270 or ball.ycor()< -270:
+        ball.bounce_y()
 
-    if -280 < ball.ycor() > 280:
-        ball.bounce()
+#Detect collision with the paddles
+    if ball.distance(r_paddle) < 50 and ball.xcor()> 350 or ball.distance(l_paddle) < 50 and ball.xcor() < -350:
+        ball.bounce_x()
 
 
 screen.exitonclick()
